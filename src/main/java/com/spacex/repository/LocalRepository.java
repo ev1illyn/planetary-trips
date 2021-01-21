@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.spacex.model.Airport;
 
 @Repository
-public interface Local extends JpaRepository<Airport, Long>{
+public interface LocalRepository extends JpaRepository<Airport, Long>{
 
 }
 
