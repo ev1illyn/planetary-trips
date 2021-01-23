@@ -16,7 +16,8 @@ public class Flight {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long number;
 	
 	private int availableSeats;
@@ -27,7 +28,7 @@ public class Flight {
 	
 	@OneToOne
 	private Local destination;
-
+	
 	@OneToOne
 	private Local departure;
 	
@@ -37,6 +38,24 @@ public class Flight {
 	
 	@ManyToOne
 	private Airport airport;
+	
+	public Flight() {
+		
+	}
+	
+	public Flight(int availableSeats, Double duration, HashMap<Passenger, Double> priceByPassenger,
+			Local destination, Local departure, LocalDateTime arrivalDate, LocalDateTime departureDate,
+			Airport airport) {
+		super();
+		this.availableSeats = availableSeats;
+		this.duration = duration;
+		this.priceByPassenger = priceByPassenger;
+		this.destination = destination;
+		this.departure = departure;
+		this.arrivalDate = arrivalDate;
+		this.departureDate = departureDate;
+		this.airport = airport;
+	}
 
 	public Long getId() {
 		return id;
@@ -193,5 +212,7 @@ public class Flight {
 			return false;
 		return true;
 	}
+
+	
 	
 }

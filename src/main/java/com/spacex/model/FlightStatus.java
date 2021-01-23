@@ -54,6 +54,17 @@ public class FlightStatus {
 	public void setObservations(String observations) {
 		this.observations = observations;
 	}
+	
+	public FlightStatus() {
+		
+	}
+
+	public FlightStatus(Status status, Local local, String observations) {
+		super();
+		this.status = status;
+		this.local = local;
+		this.observations = observations;
+	}
 
 	@Override
 	public int hashCode() {

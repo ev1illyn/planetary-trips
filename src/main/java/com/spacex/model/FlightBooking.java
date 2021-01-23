@@ -1,5 +1,6 @@
 package com.spacex.model;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 import javax.persistence.Entity;
@@ -24,6 +25,20 @@ public class FlightBooking {
 	
 	@ManyToOne
 	private Client client;
+	
+	private LocalDateTime bookingDate = LocalDateTime.now();
+
+	public FlightBooking() {
+		
+	}
+	
+	public FlightBooking(HashMap<Passenger, Double> passengers, Double price, Flight flight, Client client) {
+		super();
+		this.passengers = passengers;
+		this.price = price;
+		this.flight = flight;
+		this.client = client;
+	}
 
 	public Long getId() {
 		return id;
@@ -65,10 +80,19 @@ public class FlightBooking {
 		this.client = client;
 	}
 
+	public LocalDateTime getBookingDate() {
+		return bookingDate;
+	}
+
+	public void setBookingDate(LocalDateTime bookingDate) {
+		this.bookingDate = bookingDate;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((bookingDate == null) ? 0 : bookingDate.hashCode());
 		result = prime * result + ((client == null) ? 0 : client.hashCode());
 		result = prime * result + ((flight == null) ? 0 : flight.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -86,6 +110,11 @@ public class FlightBooking {
 		if (getClass() != obj.getClass())
 			return false;
 		FlightBooking other = (FlightBooking) obj;
+		if (bookingDate == null) {
+			if (other.bookingDate != null)
+				return false;
+		} else if (!bookingDate.equals(other.bookingDate))
+			return false;
 		if (client == null) {
 			if (other.client != null)
 				return false;
@@ -113,5 +142,5 @@ public class FlightBooking {
 			return false;
 		return true;
 	}
-	
+
 }

@@ -22,6 +22,15 @@ public class Profiles implements GrantedAuthority{
 	public String getAuthority() {
 		return name;
 	}
+	
+	public Profiles() {
+		
+	}
+	
+	public Profiles(String name) {
+		super();
+		this.name = name;
+	}
 
 	public Long getId() {
 		return id;
@@ -42,7 +51,5 @@ public class Profiles implements GrantedAuthority{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
 	
 }

@@ -19,6 +19,17 @@ public class Local {
 	private String state;
 	
 	private String city;
+	
+	public Local() {
+		
+	}
+	public Local(Long zipCode, String country, String state, String city) {
+		super();
+		this.zipCode = zipCode;
+		this.country = country;
+		this.state = state;
+		this.city = city;
+	}
 
 	public Long getId() {
 		return id;

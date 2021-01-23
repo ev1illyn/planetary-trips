@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
 
 @Entity
 public class Airport {
@@ -14,9 +13,9 @@ public class Airport {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotNull
 	private String name;
 	
+
 	@OneToOne
 	private Local address;
 
@@ -41,6 +40,16 @@ public class Airport {
 	}
 
 	public void setAddress(Local address) {
+		this.address = address;
+	}
+	
+	public Airport() {
+		
+	}
+	
+	public Airport(String name, Local address) {
+		super();
+		this.name = name;
 		this.address = address;
 	}
 

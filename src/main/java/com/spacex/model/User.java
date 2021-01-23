@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -24,14 +23,25 @@ public class User implements UserDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String nome;
+	private String name;
 	
 	private String email;
 	
-	private String senha;
+	private String password;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	private List<Profile> profiles = new ArrayList<>();
+	private List<Profiles> profiles = new ArrayList<>();
+
+	public User() {
+	}
+
+	public User(String name, String email, String password, List<Profiles> profiles) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.profiles = profiles;
+	}
 
 	@Override
 	public int hashCode() {
@@ -66,14 +76,6 @@ public class User implements UserDetails {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -82,22 +84,34 @@ public class User implements UserDetails {
 		this.email = email;
 	}
 
-	public String getSenha() {
-		return senha;
+	public String getName() {
+		return name;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setName(String name) {
+		this.name = name;
 	}
-	
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public String getPassword() {
-		return this.getSenha();
+		return this.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-		return this.nome;
+		return this.name;
+	}
+
+	public List<Profiles> getProfiles() {
+		return profiles;
+	}
+
+	public void setProfiles(List<Profiles> profiles) {
+		this.profiles = profiles;
 	}
 
 	@Override
@@ -118,14 +132,6 @@ public class User implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
-	}
-
-	public List<Profile> getProfiles() {
-		return profiles;
-	}
-
-	public void setPerfis(List<Profile> profiles) {
-		this.profiles = profiles;
 	}
 
 	@Override

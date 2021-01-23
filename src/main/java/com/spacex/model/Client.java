@@ -4,8 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.validation.constraints.Email;
+import javax.persistence.OneToMany;
+
 
 @Entity
 public class Client {
@@ -17,14 +17,26 @@ public class Client {
 	private String name;
 	
 	private String phoneNumber;
-	
-	@OneToOne
+
+	@OneToMany
 	private Local local;
-	
+
 	private String address;
 	
-	@Email(message = "Email should be valid")
 	private String email;
+	
+	public Client() {
+		
+	}
+	
+	public Client(String name, String phoneNumber, Local local, String address, String email) {
+		super();
+		this.name = name;
+		this.phoneNumber = phoneNumber;
+		this.local = local;
+		this.address = address;
+		this.email = email;
+	}
 
 	public Long getId() {
 		return id;
@@ -32,14 +44,6 @@ public class Client {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getPhoneNumber() {
@@ -72,6 +76,14 @@ public class Client {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override

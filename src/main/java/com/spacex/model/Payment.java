@@ -39,6 +39,15 @@ public class Payment {
 	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
+	
+	public Payment() {
+	}
+	
+	public Payment(Double value, LocalDateTime date) {
+		super();
+		this.value = value;
+		this.date = date;
+	}
 
 	@Override
 	public int hashCode() {
