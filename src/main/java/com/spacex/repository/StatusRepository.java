@@ -3,10 +3,10 @@ package com.spacex.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.spacex.model.Airport;
+import com.spacex.model.Status;
 
 @Repository
-public interface StatusRepository extends JpaRepository<Airport, Long>{
+public interface StatusRepository extends JpaRepository<Status, Long>{
 
 }
 

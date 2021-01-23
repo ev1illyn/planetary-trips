@@ -8,5 +8,6 @@ import com.spacex.model.Airport;
 @Repository
 public interface AirportRepository extends JpaRepository<Airport, Long>{
 
+	Airport findByNameContaining(String airportName);
 }
 
