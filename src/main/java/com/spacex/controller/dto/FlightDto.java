@@ -2,6 +2,8 @@ package com.spacex.controller.dto;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.spacex.model.Flight;
 import com.spacex.model.Local;
@@ -111,5 +113,8 @@ public class FlightDto {
 	public void setDepartureDate(LocalDateTime departureDate) {
 		this.departureDate = departureDate;
 	}
-	
+
+	public static List<FlightDto> convertList(List<Flight> flights) {
+		return flights.stream().map(FlightDto::new).collect(Collectors.toList());
+	}
 }

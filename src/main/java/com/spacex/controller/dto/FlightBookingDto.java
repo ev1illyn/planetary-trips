@@ -2,6 +2,8 @@ package com.spacex.controller.dto;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.spacex.model.Client;
 import com.spacex.model.Flight;
@@ -79,5 +81,8 @@ public class FlightBookingDto {
 	public void setBookingDate(LocalDateTime bookingDate) {
 		this.bookingDate = bookingDate;
 	}
-	
+
+	public static List<FlightBookingDto> convertList(List<FlightBooking> flightBookings) {
+		return flightBookings.stream().map(FlightBookingDto::new).collect(Collectors.toList());
+	}
 }

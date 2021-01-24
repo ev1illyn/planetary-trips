@@ -1,5 +1,8 @@
 package com.spacex.controller.dto;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.spacex.model.FlightStatus;
 import com.spacex.model.Local;
 import com.spacex.model.Status;
@@ -53,5 +56,8 @@ public class FlightStatusDto {
 	public void setObservations(String observations) {
 		this.observations = observations;
 	}
-	
+
+	public static List<FlightStatusDto> convertList(List<FlightStatus> flightStatus) {
+		return flightStatus.stream().map(FlightStatusDto::new).collect(Collectors.toList());
+	}
 }

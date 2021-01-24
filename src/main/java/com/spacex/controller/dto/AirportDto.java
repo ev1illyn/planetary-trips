@@ -1,5 +1,8 @@
 package com.spacex.controller.dto;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.spacex.model.Airport;
 import com.spacex.model.Local;
 
@@ -42,5 +45,7 @@ public class AirportDto {
 		this.address = address;
 	}
 	
-	
+	public static List<AirportDto> convertList(List<Airport> airports) {
+		return airports.stream().map(AirportDto::new).collect(Collectors.toList());
+	}
 }

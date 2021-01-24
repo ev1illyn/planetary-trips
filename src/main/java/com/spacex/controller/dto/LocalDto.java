@@ -1,5 +1,8 @@
 package com.spacex.controller.dto;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.spacex.model.Local;
 
 public class LocalDto {
@@ -62,5 +65,8 @@ public class LocalDto {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	
+
+	public static List<LocalDto> convertList(List<Local> locals) {
+		return locals.stream().map(LocalDto::new).collect(Collectors.toList());
+	}
 }

@@ -1,5 +1,8 @@
 package com.spacex.controller.dto;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.spacex.model.Profiles;
 
 public class ProfilesDto {
@@ -29,5 +32,8 @@ public class ProfilesDto {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+	public static List<ProfilesDto> convertList(List<Profiles> profiles) {
+		return profiles.stream().map(ProfilesDto::new).collect(Collectors.toList());
+	}
 }

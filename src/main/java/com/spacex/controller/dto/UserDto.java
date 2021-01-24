@@ -1,5 +1,9 @@
 package com.spacex.controller.dto;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.spacex.model.Profiles;
 import com.spacex.model.User;
 
 public class UserDto {
@@ -51,5 +55,8 @@ public class UserDto {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
+	public static List<UserDto> convertList(List<User> users) {
+		return users.stream().map(UserDto::new).collect(Collectors.toList());
+	}
 }

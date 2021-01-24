@@ -1,6 +1,8 @@
 package com.spacex.controller.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.spacex.model.Payment;
 
@@ -42,5 +44,8 @@ public class PaymentDto {
 	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
-	
+
+	public static List<PaymentDto> convertList(List<Payment> payments) {
+		return payments.stream().map(PaymentDto::new).collect(Collectors.toList());
+	}
 }
