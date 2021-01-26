@@ -7,9 +7,11 @@ import org.hibernate.validator.constraints.Length;
 
 import com.spacex.model.Airport;
 import com.spacex.model.Local;
+import com.spacex.repository.AirportRepository;
 import com.spacex.repository.LocalRepository;
 
-public class AirportForm {
+public class AirportUpdateForm {
+
 
 	@NotNull
 	@NotEmpty
@@ -50,9 +52,14 @@ public class AirportForm {
 		this.street = street;
 	}
 
-	public Airport convert(LocalRepository localRepository) {
-		Local address = localRepository.findByCity(cityName);
-		return new Airport(name, address, street);
+	public Airport update(Long id, AirportRepository airportRepository, LocalRepository localRepository) {
+		Airport airport = airportRepository.getOne(id);
+		Local local = localRepository.findByCity(this.cityName);
+		
+		airport.setName(this.name);
+		airport.setStreet(this.street);
+		airport.setAddress(local);
+		
+		return airport;
 	}
-	
 }

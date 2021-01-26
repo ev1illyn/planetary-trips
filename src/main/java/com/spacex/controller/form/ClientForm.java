@@ -74,7 +74,7 @@ public class ClientForm {
 	}
 
 	public Client convert(LocalRepository localRepository) {
-		Local local = localRepository.findByCityName(cityName);
+		Local local = localRepository.findByCity(cityName);
 		return new Client(name, phoneNumber, local, address, email);		
 	}
 

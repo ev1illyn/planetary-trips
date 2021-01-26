@@ -8,12 +8,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
-import org.springframework.context.annotation.Profile;
-import org.springframework.security.core.userdetails.User;
 
-import com.spacex.model.Local;
-import com.spacex.model.Profiles;
-import com.spacex.repository.ProfilesRepository;
+import com.spacex.model.User;
 
 public class UserForm {
 
@@ -69,9 +65,13 @@ public class UserForm {
 		this.profileName = profileName;
 	}
 
-	public User converter(ProfilesRepository profilesRepository) {
-		List<Profiles> profiles = profilesRepository.findByProfileContaining(profileName);
-		return new User(name, email, password, profiles);	
+	public User convert() {
+		return new User(name, email, password);
 	}
+	
+	/*public User convert(ProfilesRepository profilesRepository) {
+		List<Profiles> profiles = profilesRepository.findDistinctByNameIn(profileName);
+		return new User(name, email, password, profiles);
+	}*/
 	
 }

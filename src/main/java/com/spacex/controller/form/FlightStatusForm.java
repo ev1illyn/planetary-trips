@@ -48,7 +48,7 @@ public class FlightStatusForm {
 	}
 	
 	public FlightStatus convert(LocalRepository localRepository) {
-		Local local = localRepository.findByCityName(localStatus);
+		Local local = localRepository.findByCity(localStatus);
 		return new FlightStatus(status, local, observations);
 	}
 	

@@ -116,8 +116,8 @@ public class FlightForm {
 	public Flight convert(AirportRepository airportRepository,
 			LocalRepository localRepository) {
 		Airport airport = airportRepository.findByNameContaining(airportName);
-		Local departure = localRepository.findByCityName(departureCityName);
-		Local destination = localRepository.findByCityName(destinationCityName);
+		Local departure = localRepository.findByCity(departureCityName);
+		Local destination = localRepository.findByCity(destinationCityName);
 		return new Flight(availableSeats, duration, priceByPassenger, destination, departure, arrivalDate, departureDate, airport);
 	}
 }

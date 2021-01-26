@@ -12,7 +12,7 @@ public class LocalForm {
 	@NotNull
 	@NotEmpty
 	@Length(min = 5, max = 25)
-	private Long zipCode;
+	private String zipCode;
 
 	@NotNull
 	@NotEmpty
@@ -29,11 +29,11 @@ public class LocalForm {
 	@Length(min = 3, max = 255)
 	private String city;
 
-	public Long getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 
-	public void setZipCode(Long zipCode) {
+	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 

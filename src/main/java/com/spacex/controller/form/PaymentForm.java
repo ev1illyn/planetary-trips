@@ -36,7 +36,7 @@ public class PaymentForm {
 		this.date = date;
 	}
 	
-	public Payment converter() {
+	public Payment convert() {
 		return new Payment(value, date);		
 	}
 	
