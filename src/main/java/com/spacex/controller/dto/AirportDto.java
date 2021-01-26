@@ -1,7 +1,6 @@
 package com.spacex.controller.dto;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
 
 import com.spacex.model.Airport;
 import com.spacex.model.Local;
@@ -13,12 +12,15 @@ public class AirportDto {
 	private String name;
 	
 	private Local address;
+	
+	private String street;
 
 	public AirportDto(Airport airport) {
 		super();
 		this.id = airport.getId();
 		this.name = airport.getName();
 		this.address = airport.getAddress();
+		this.street = airport.getStreet();
 	}
 
 	public Long getId() {
@@ -44,8 +46,17 @@ public class AirportDto {
 	public void setAddress(Local address) {
 		this.address = address;
 	}
-	
-	public static List<AirportDto> convertList(List<Airport> airports) {
-		return airports.stream().map(AirportDto::new).collect(Collectors.toList());
+
+	public String getStreet() {
+		return street;
 	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+	
+	public static Page<AirportDto> convertList(Page<Airport> airports) {
+		return airports.map(AirportDto::new);
+	}
+	
 }

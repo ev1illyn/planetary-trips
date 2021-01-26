@@ -1,9 +1,7 @@
 package com.spacex.controller.dto;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
 
-import com.spacex.model.Profiles;
 import com.spacex.model.User;
 
 public class UserDto {
@@ -21,7 +19,7 @@ public class UserDto {
 		this.id = user.getId();
 		this.name = user.getName();
 		this.email = user.getEmail();
-		this.password = user.getPassword();
+		this.password = user.getPass();
 	}
 
 	public Long getId() {
@@ -56,7 +54,7 @@ public class UserDto {
 		this.password = password;
 	}
 
-	public static List<UserDto> convertList(List<User> users) {
-		return users.stream().map(UserDto::new).collect(Collectors.toList());
+	public static Page<UserDto> convertList(Page<User> users) {
+		return users.map(UserDto::new);
 	}
 }

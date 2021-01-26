@@ -1,8 +1,8 @@
 package com.spacex.controller.dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
 
 import com.spacex.model.Payment;
 
@@ -45,7 +45,7 @@ public class PaymentDto {
 		this.date = date;
 	}
 
-	public static List<PaymentDto> convertList(List<Payment> payments) {
-		return payments.stream().map(PaymentDto::new).collect(Collectors.toList());
+	public static Page<PaymentDto> convertList(Page<Payment> payments) {
+		return payments.map(PaymentDto::new);
 	}
 }

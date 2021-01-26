@@ -1,7 +1,6 @@
 package com.spacex.controller.dto;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
 
 import com.spacex.model.Client;
 import com.spacex.model.Local;
@@ -78,7 +77,7 @@ public class ClientDto {
 		this.email = email;
 	}
 
-	public static List<ClientDto> convertList(List<Client> clients) {
-		return clients.stream().map(ClientDto::new).collect(Collectors.toList());
+	public static Page<ClientDto> convertList(Page<Client> clients) {
+		return clients.map(ClientDto::new);
 	}
 }

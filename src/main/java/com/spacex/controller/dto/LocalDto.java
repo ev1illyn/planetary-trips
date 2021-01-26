@@ -1,7 +1,6 @@
 package com.spacex.controller.dto;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
 
 import com.spacex.model.Local;
 
@@ -9,7 +8,7 @@ public class LocalDto {
 
 	private Long id;
 	
-	private Long zipCode;
+	private String zipCode;
 
 	private String country;
 	
@@ -34,11 +33,11 @@ public class LocalDto {
 		this.id = id;
 	}
 
-	public Long getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 
-	public void setZipCode(Long zipCode) {
+	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 
@@ -66,7 +65,7 @@ public class LocalDto {
 		this.city = city;
 	}
 
-	public static List<LocalDto> convertList(List<Local> locals) {
-		return locals.stream().map(LocalDto::new).collect(Collectors.toList());
+	public static Page<LocalDto> convertList(Page<Local> locals) {
+		return locals.map(LocalDto::new);
 	}
 }

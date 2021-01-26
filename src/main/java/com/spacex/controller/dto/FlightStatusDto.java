@@ -1,7 +1,6 @@
 package com.spacex.controller.dto;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
 
 import com.spacex.model.FlightStatus;
 import com.spacex.model.Local;
@@ -57,7 +56,7 @@ public class FlightStatusDto {
 		this.observations = observations;
 	}
 
-	public static List<FlightStatusDto> convertList(List<FlightStatus> flightStatus) {
-		return flightStatus.stream().map(FlightStatusDto::new).collect(Collectors.toList());
+	public static Page<FlightStatusDto> convertList(Page<FlightStatus> flightStatus) {
+		return flightStatus.map(FlightStatusDto::new);
 	}
 }

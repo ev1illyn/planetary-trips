@@ -2,8 +2,8 @@ package com.spacex.controller.dto;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
 
 import com.spacex.model.Client;
 import com.spacex.model.Flight;
@@ -82,7 +82,7 @@ public class FlightBookingDto {
 		this.bookingDate = bookingDate;
 	}
 
-	public static List<FlightBookingDto> convertList(List<FlightBooking> flightBookings) {
-		return flightBookings.stream().map(FlightBookingDto::new).collect(Collectors.toList());
+	public static Page<FlightBookingDto> convertList(Page<FlightBooking> flightBookings) {
+		return flightBookings.map(FlightBookingDto::new);
 	}
 }
