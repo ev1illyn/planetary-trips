@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Airport {
@@ -15,9 +15,10 @@ public class Airport {
 
 	private String name;
 	
-
-	@OneToOne
+	@ManyToOne
 	private Local address;
+	
+	private String street;
 
 	public Long getId() {
 		return id;
@@ -47,10 +48,19 @@ public class Airport {
 		
 	}
 	
-	public Airport(String name, Local address) {
+	public Airport(String name, Local address, String street) {
 		super();
 		this.name = name;
 		this.address = address;
+		this.street = street;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
 	}
 
 	@Override

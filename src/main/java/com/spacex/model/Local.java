@@ -12,7 +12,7 @@ public class Local {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private Long zipCode;
+	private String zipCode;
 
 	private String country;
 	
@@ -23,7 +23,7 @@ public class Local {
 	public Local() {
 		
 	}
-	public Local(Long zipCode, String country, String state, String city) {
+	public Local(String zipCode, String country, String state, String city) {
 		super();
 		this.zipCode = zipCode;
 		this.country = country;
@@ -39,11 +39,11 @@ public class Local {
 		this.id = id;
 	}
 
-	public Long getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 
-	public void setZipCode(Long zipCode) {
+	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 

@@ -1,23 +1,12 @@
 package com.spacex.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-public class User implements UserDetails {
-
-	private static final long serialVersionUID = 1L;
+public class User{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,20 +16,16 @@ public class User implements UserDetails {
 	
 	private String email;
 	
-	private String password;
+	private String pass;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
-	private List<Profiles> profiles = new ArrayList<>();
-
 	public User() {
 	}
 
-	public User(String name, String email, String password, List<Profiles> profiles) {
+	public User(String name, String email, String pass) {
 		super();
 		this.name = name;
 		this.email = email;
-		this.password = password;
-		this.profiles = profiles;
+		this.pass = pass;
 	}
 
 	@Override
@@ -91,52 +76,13 @@ public class User implements UserDetails {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	
+	public String getPass() {
+		return pass;
 	}
-
-	@Override
-	public String getPassword() {
-		return this.getPassword();
-	}
-
-	@Override
-	public String getUsername() {
-		return this.name;
-	}
-
-	public List<Profiles> getProfiles() {
-		return profiles;
-	}
-
-	public void setProfiles(List<Profiles> profiles) {
-		this.profiles = profiles;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+	
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 
 }

@@ -4,8 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Client {
@@ -18,7 +17,7 @@ public class Client {
 	
 	private String phoneNumber;
 
-	@OneToMany
+	@ManyToOne
 	private Local local;
 
 	private String address;
