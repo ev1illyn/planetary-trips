@@ -8,7 +8,7 @@ import com.spacex.model.Local;
 @Repository
 public interface LocalRepository extends JpaRepository<Local, Long>{
 
-	Local findByCityName(String cityName);
+	Local findByCity(String cityName);
 	
 }
 
