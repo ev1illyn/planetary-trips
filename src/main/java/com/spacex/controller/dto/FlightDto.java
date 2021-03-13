@@ -1,12 +1,12 @@
 package com.spacex.controller.dto;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.time.LocalTime;
+
 import org.springframework.data.domain.Page;
 
 import com.spacex.model.Flight;
 import com.spacex.model.Local;
-import com.spacex.model.Passenger;
 
 public class FlightDto {
 
@@ -16,9 +16,7 @@ public class FlightDto {
 	
 	private int availableSeats;
 	
-	private Double duration;
-	
-	private HashMap<Passenger, Double> priceByPassenger;
+	private LocalTime duration;
 	
 	private Local destination;
 	
@@ -28,17 +26,22 @@ public class FlightDto {
 	
 	private LocalDateTime departureDate;
 
+	private String arrivalAirport;
+	
+	private String departureAirport;
+	
 	public FlightDto(Flight flight) {
 		super();
 		this.id = flight.getId();
 		this.number = flight.getNumber();
 		this.availableSeats = flight.getAvailableSeats();
 		this.duration = flight.getDuration();
-		this.priceByPassenger = flight.getPriceByPassenger();
 		this.destination = flight.getDestination();
 		this.departure = flight.getDeparture();
 		this.arrivalDate = flight.getArrivalDate();
 		this.departureDate = flight.getDepartureDate();
+		this.arrivalAirport = flight.getArrivalAirport().getName();
+		this.arrivalAirport = flight.getDepartureAirport().getName();
 	}
 
 	public Long getId() {
@@ -65,22 +68,14 @@ public class FlightDto {
 		this.availableSeats = availableSeats;
 	}
 
-	public Double getDuration() {
+	public LocalTime getDuration() {
 		return duration;
 	}
 
-	public void setDuration(Double duration) {
+	public void setDuration(LocalTime duration) {
 		this.duration = duration;
 	}
-
-	public HashMap<Passenger, Double> getPriceByPassenger() {
-		return priceByPassenger;
-	}
-
-	public void setPriceByPassenger(HashMap<Passenger, Double> priceByPassenger) {
-		this.priceByPassenger = priceByPassenger;
-	}
-
+	
 	public Local getDestination() {
 		return destination;
 	}
@@ -111,6 +106,22 @@ public class FlightDto {
 
 	public void setDepartureDate(LocalDateTime departureDate) {
 		this.departureDate = departureDate;
+	}
+
+	public String getArrivalAirport() {
+		return arrivalAirport;
+	}
+
+	public void setArrivalAirport(String arrivalAirport) {
+		this.arrivalAirport = arrivalAirport;
+	}
+
+	public String getDepartureAirport() {
+		return departureAirport;
+	}
+
+	public void setDepartureAirport(String departureAirport) {
+		this.departureAirport = departureAirport;
 	}
 
 	public static Page<FlightDto> convertList(Page<Flight> flights) {

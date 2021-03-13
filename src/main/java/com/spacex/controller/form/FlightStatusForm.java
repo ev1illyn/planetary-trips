@@ -13,7 +13,6 @@ import com.spacex.repository.LocalRepository;
 public class FlightStatusForm {
 
 	@NotNull
-	@NotEmpty
 	private Status status = Status.NOT_ACTIVE;
 
 	@NotNull

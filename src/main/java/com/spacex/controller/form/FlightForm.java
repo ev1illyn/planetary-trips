@@ -1,33 +1,32 @@
 package com.spacex.controller.form;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.time.LocalTime;
 
+import javax.persistence.Column;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.spacex.model.Airport;
 import com.spacex.model.Flight;
 import com.spacex.model.Local;
-import com.spacex.model.Passenger;
 import com.spacex.repository.AirportRepository;
 import com.spacex.repository.LocalRepository;
 
 public class FlightForm {
 
 	@NotNull
-	@NotEmpty
-	@Length(min = 1, max = 10)
 	private int availableSeats;
 
 	@NotNull
-	@NotEmpty
-	@Length(max = 10000)
-	private Double duration;
-	
-	private HashMap<Passenger, Double> priceByPassenger;
+	private LocalTime duration;
+
+    @Column(columnDefinition = "Decimal(3,1) default '5.0'")
+	private Double childDiscount;
 
 	@NotNull
 	@NotEmpty
@@ -38,16 +37,24 @@ public class FlightForm {
 	private String departureCityName;
 
 	@NotNull
-	@NotEmpty
+	@Future
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
 	private LocalDateTime arrivalDate;
 
 	@NotNull
-	@NotEmpty
+	@Future
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
 	private LocalDateTime departureDate;
 
 	@NotNull
 	@NotEmpty
-	private String airportName;
+	@Length(min = 5, max = 255)
+	private String departureAirportName;
+	
+	@NotNull
+	@NotEmpty
+	@Length(min = 5, max = 255)
+	private String arrivalAirportName;
 
 	public int getAvailableSeats() {
 		return availableSeats;
@@ -57,20 +64,28 @@ public class FlightForm {
 		this.availableSeats = availableSeats;
 	}
 
-	public Double getDuration() {
+	public LocalTime getDuration() {
 		return duration;
 	}
 
-	public void setDuration(Double duration) {
+	public void setDuration(LocalTime duration) {
 		this.duration = duration;
 	}
-
-	public HashMap<Passenger, Double> getPriceByPassenger() {
-		return priceByPassenger;
+	
+	public Double getChildDiscount() {
+		return childDiscount;
 	}
 
-	public void setPriceByPassenger(HashMap<Passenger, Double> priceByPassenger) {
-		this.priceByPassenger = priceByPassenger;
+	public void setChildDiscount(Double childDiscount) {
+		this.childDiscount = childDiscount;
+	}
+
+	public String getDepartureCityName() {
+		return departureCityName;
+	}
+
+	public void setDestinationCityName(String destinationCityName) {
+		this.destinationCityName = destinationCityName;
 	}
 
 	public String getDestinationCityName() {
@@ -105,19 +120,29 @@ public class FlightForm {
 		this.departureDate = departureDate;
 	}
 
-	public String getAirportName() {
-		return airportName;
+	public String getDepartureAirportName() {
+		return departureAirportName;
 	}
 
-	public void setAirportName(String airportName) {
-		this.airportName = airportName;
+	public void setDepartureAirportName(String departureAirportName) {
+		this.departureAirportName = departureAirportName;
 	}
-	
+
+	public String getArrivalAirportName() {
+		return arrivalAirportName;
+	}
+
+	public void setArrivalAirportName(String arrivalAirportName) {
+		this.arrivalAirportName = arrivalAirportName;
+	}
+
 	public Flight convert(AirportRepository airportRepository,
 			LocalRepository localRepository) {
-		Airport airport = airportRepository.findByNameContaining(airportName);
+		Airport departureAirport = airportRepository.findByNameContaining(departureAirportName);
+		Airport arrivalAirport = airportRepository.findByNameContaining(arrivalAirportName);
 		Local departure = localRepository.findByCity(departureCityName);
 		Local destination = localRepository.findByCity(destinationCityName);
-		return new Flight(availableSeats, duration, priceByPassenger, destination, departure, arrivalDate, departureDate, airport);
+		
+		return new Flight(availableSeats, duration, childDiscount, destination, departure, arrivalDate, departureDate, departureAirport, arrivalAirport);
 	}
 }

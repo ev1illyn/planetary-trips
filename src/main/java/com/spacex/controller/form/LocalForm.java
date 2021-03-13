@@ -61,7 +61,7 @@ public class LocalForm {
 		this.city = city;
 	}
 	
-	public Local converter() {
+	public Local convert() {
 		return new Local(zipCode, country, state, city);
 	}
 	

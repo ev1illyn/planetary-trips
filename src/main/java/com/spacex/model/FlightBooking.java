@@ -15,7 +15,7 @@ public class FlightBooking {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private HashMap<Passenger, Double> passengers;
 	
 	private Double price;
@@ -24,20 +24,23 @@ public class FlightBooking {
 	private Flight flight;
 	
 	@ManyToOne
-	private Client client;
+	private User user;
 	
 	private LocalDateTime bookingDate = LocalDateTime.now();
 
 	public FlightBooking() {
 		
 	}
-	
-	public FlightBooking(HashMap<Passenger, Double> passengers, Double price, Flight flight, Client client) {
+
+	public FlightBooking(Long id, HashMap<Passenger, Double> passengers, Double price,
+			Flight flight, User user, LocalDateTime bookingDate) {
 		super();
+		this.id = id;
 		this.passengers = passengers;
 		this.price = price;
 		this.flight = flight;
-		this.client = client;
+		this.user = user;
+		this.bookingDate = bookingDate;
 	}
 
 	public Long getId() {
@@ -72,12 +75,12 @@ public class FlightBooking {
 		this.flight = flight;
 	}
 
-	public Client getClient() {
-		return client;
+	public User getUser() {
+		return user;
 	}
 
-	public void setClient(Client client) {
-		this.client = client;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public LocalDateTime getBookingDate() {
@@ -93,11 +96,10 @@ public class FlightBooking {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((bookingDate == null) ? 0 : bookingDate.hashCode());
-		result = prime * result + ((client == null) ? 0 : client.hashCode());
 		result = prime * result + ((flight == null) ? 0 : flight.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((passengers == null) ? 0 : passengers.hashCode());
 		result = prime * result + ((price == null) ? 0 : price.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -115,11 +117,6 @@ public class FlightBooking {
 				return false;
 		} else if (!bookingDate.equals(other.bookingDate))
 			return false;
-		if (client == null) {
-			if (other.client != null)
-				return false;
-		} else if (!client.equals(other.client))
-			return false;
 		if (flight == null) {
 			if (other.flight != null)
 				return false;
@@ -130,17 +127,17 @@ public class FlightBooking {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (passengers == null) {
-			if (other.passengers != null)
-				return false;
-		} else if (!passengers.equals(other.passengers))
-			return false;
 		if (price == null) {
 			if (other.price != null)
 				return false;
 		} else if (!price.equals(other.price))
 			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
 		return true;
 	}
-
+	
 }

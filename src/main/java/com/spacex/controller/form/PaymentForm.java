@@ -2,7 +2,6 @@ package com.spacex.controller.form;
 
 import java.time.LocalDateTime;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
@@ -12,12 +11,10 @@ import com.spacex.model.Payment;
 public class PaymentForm {
 
 	@NotNull
-	@NotEmpty
 	@Length(max = 100000)
 	private Double value;
 
 	@NotNull
-	@NotEmpty
 	private LocalDateTime date;
 
 	public Double getValue() {

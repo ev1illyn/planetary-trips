@@ -2,6 +2,7 @@ package com.spacex.controller.dto;
 
 import org.springframework.data.domain.Page;
 
+import com.spacex.model.Local;
 import com.spacex.model.User;
 
 public class UserDto {
@@ -14,12 +15,45 @@ public class UserDto {
 	
 	private String password;
 
+	private String phoneNumber;
+
+	private Local local;
+
+	private String street;
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public Local getLocal() {
+		return local;
+	}
+
+	public void setLocal(Local local) {
+		this.local = local;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
 	public UserDto(User user) {
 		super();
 		this.id = user.getId();
 		this.name = user.getName();
 		this.email = user.getEmail();
 		this.password = user.getPass();
+		this.phoneNumber = user.getPhoneNumber();
+		this.local = user.getLocal();
+		this.street = user.getStreet();
 	}
 
 	public Long getId() {

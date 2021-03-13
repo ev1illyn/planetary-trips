@@ -5,22 +5,24 @@ import java.util.HashMap;
 
 import org.springframework.data.domain.Page;
 
-import com.spacex.model.Client;
 import com.spacex.model.Flight;
 import com.spacex.model.FlightBooking;
 import com.spacex.model.Passenger;
+import com.spacex.model.User;
 
 public class FlightBookingDto {
 
 	private Long id;
+
+	private Boolean childDiscount;
 	
 	private HashMap<Passenger, Double> passengers;
-	
+
 	private Double price;
 	
 	private Flight flight;
 	
-	private Client client;
+	private User user;
 	
 	private LocalDateTime bookingDate = LocalDateTime.now();
 
@@ -30,16 +32,8 @@ public class FlightBookingDto {
 		this.passengers = flightBooking.getPassengers();
 		this.price = flightBooking.getPrice();
 		this.flight = flightBooking.getFlight();
-		this.client = flightBooking.getClient();
+		this.user = flightBooking.getUser();
 		this.bookingDate = flightBooking.getBookingDate();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public HashMap<Passenger, Double> getPassengers() {
@@ -49,7 +43,15 @@ public class FlightBookingDto {
 	public void setPassengers(HashMap<Passenger, Double> passengers) {
 		this.passengers = passengers;
 	}
+	
+	public Long getId() {
+		return id;
+	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public Double getPrice() {
 		return price;
 	}
@@ -66,12 +68,12 @@ public class FlightBookingDto {
 		this.flight = flight;
 	}
 
-	public Client getClient() {
-		return client;
+	public User getUser() {
+		return user;
 	}
 
-	public void setClient(Client client) {
-		this.client = client;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public LocalDateTime getBookingDate() {
@@ -82,7 +84,16 @@ public class FlightBookingDto {
 		this.bookingDate = bookingDate;
 	}
 
-	public static Page<FlightBookingDto> convertList(Page<FlightBooking> flightBookings) {
-		return flightBookings.map(FlightBookingDto::new);
+	public Boolean getChildDiscount() {
+		return childDiscount;
 	}
+
+	public void setChildDiscount(Boolean childDiscount) {
+		this.childDiscount = childDiscount;
+	}
+
+	public static Page<FlightBookingDto> convertList(Page<FlightBooking> flights) {
+		return flights.map(FlightBookingDto::new);
+	}
+	
 }

@@ -1,7 +1,7 @@
 package com.spacex.model;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.time.LocalTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,44 +17,71 @@ public class Flight {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long number;
-	
+
 	private int availableSeats;
+
+	private LocalTime duration;
 	
-	private Double duration;
-	
-	private HashMap<Passenger, Double> priceByPassenger;
+	private Double childDiscount = 5.0;
 	
 	@OneToOne
 	private Local destination;
-	
+
 	@OneToOne
 	private Local departure;
-	
+
 	private LocalDateTime arrivalDate;
-	
+
 	private LocalDateTime departureDate;
+
+	@ManyToOne
+	private Airport departureAirport;
 	
 	@ManyToOne
-	private Airport airport;
-	
+	private Airport arrivalAirport;
+
 	public Flight() {
-		
+
 	}
 	
-	public Flight(int availableSeats, Double duration, HashMap<Passenger, Double> priceByPassenger,
-			Local destination, Local departure, LocalDateTime arrivalDate, LocalDateTime departureDate,
-			Airport airport) {
+	public Flight(int availableSeats, LocalTime duration, Double childDiscount, Local destination, Local departure,
+			LocalDateTime arrivalDate, LocalDateTime departureDate, Airport departureAirport, Airport arrivalAirport) {
 		super();
 		this.availableSeats = availableSeats;
 		this.duration = duration;
-		this.priceByPassenger = priceByPassenger;
+		this.childDiscount = childDiscount;
 		this.destination = destination;
 		this.departure = departure;
 		this.arrivalDate = arrivalDate;
 		this.departureDate = departureDate;
-		this.airport = airport;
+		this.departureAirport = departureAirport;
+		this.arrivalAirport = arrivalAirport;
+	}
+
+	public Double getChildDiscount() {
+		return childDiscount;
+	}
+
+	public void setChildDiscount(Double childDiscount) {
+		this.childDiscount = childDiscount;
+	}
+	
+	public Airport getDepartureAirport() {
+		return departureAirport;
+	}
+
+	public void setDepartureAirport(Airport departureAirport) {
+		this.departureAirport = departureAirport;
+	}
+
+	public Airport getArrivalAirport() {
+		return arrivalAirport;
+	}
+
+	public void setArrivalAirport(Airport arrivalAirport) {
+		this.arrivalAirport = arrivalAirport;
 	}
 
 	public Long getId() {
@@ -81,20 +108,12 @@ public class Flight {
 		this.availableSeats = availableSeats;
 	}
 
-	public Double getDuration() {
+	public LocalTime getDuration() {
 		return duration;
 	}
 
-	public void setDuration(Double duration) {
+	public void setDuration(LocalTime duration) {
 		this.duration = duration;
-	}
-
-	public HashMap<Passenger, Double> getPriceByPassenger() {
-		return priceByPassenger;
-	}
-
-	public void setPriceByPassenger(HashMap<Passenger, Double> priceByPassenger) {
-		this.priceByPassenger = priceByPassenger;
 	}
 
 	public Local getDestination() {
@@ -129,28 +148,21 @@ public class Flight {
 		this.departureDate = departureDate;
 	}
 
-	public Airport getAirport() {
-		return airport;
-	}
-
-	public void setAirport(Airport airport) {
-		this.airport = airport;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((airport == null) ? 0 : airport.hashCode());
+		result = prime * result + ((arrivalAirport == null) ? 0 : arrivalAirport.hashCode());
 		result = prime * result + ((arrivalDate == null) ? 0 : arrivalDate.hashCode());
 		result = prime * result + availableSeats;
+		result = prime * result + ((childDiscount == null) ? 0 : childDiscount.hashCode());
 		result = prime * result + ((departure == null) ? 0 : departure.hashCode());
+		result = prime * result + ((departureAirport == null) ? 0 : departureAirport.hashCode());
 		result = prime * result + ((departureDate == null) ? 0 : departureDate.hashCode());
 		result = prime * result + ((destination == null) ? 0 : destination.hashCode());
 		result = prime * result + ((duration == null) ? 0 : duration.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((number == null) ? 0 : number.hashCode());
-		result = prime * result + ((priceByPassenger == null) ? 0 : priceByPassenger.hashCode());
 		return result;
 	}
 
@@ -163,10 +175,10 @@ public class Flight {
 		if (getClass() != obj.getClass())
 			return false;
 		Flight other = (Flight) obj;
-		if (airport == null) {
-			if (other.airport != null)
+		if (arrivalAirport == null) {
+			if (other.arrivalAirport != null)
 				return false;
-		} else if (!airport.equals(other.airport))
+		} else if (!arrivalAirport.equals(other.arrivalAirport))
 			return false;
 		if (arrivalDate == null) {
 			if (other.arrivalDate != null)
@@ -175,10 +187,20 @@ public class Flight {
 			return false;
 		if (availableSeats != other.availableSeats)
 			return false;
+		if (childDiscount == null) {
+			if (other.childDiscount != null)
+				return false;
+		} else if (!childDiscount.equals(other.childDiscount))
+			return false;
 		if (departure == null) {
 			if (other.departure != null)
 				return false;
 		} else if (!departure.equals(other.departure))
+			return false;
+		if (departureAirport == null) {
+			if (other.departureAirport != null)
+				return false;
+		} else if (!departureAirport.equals(other.departureAirport))
 			return false;
 		if (departureDate == null) {
 			if (other.departureDate != null)
@@ -205,14 +227,8 @@ public class Flight {
 				return false;
 		} else if (!number.equals(other.number))
 			return false;
-		if (priceByPassenger == null) {
-			if (other.priceByPassenger != null)
-				return false;
-		} else if (!priceByPassenger.equals(other.priceByPassenger))
-			return false;
 		return true;
 	}
 
-	
-	
+
 }

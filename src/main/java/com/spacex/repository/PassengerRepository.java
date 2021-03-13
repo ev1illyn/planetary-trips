@@ -5,16 +5,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.spacex.model.Local;
+import com.spacex.model.Passenger;
 
 @Repository
-public interface LocalRepository extends JpaRepository<Local, Long>{
+public interface PassengerRepository extends JpaRepository<Passenger, Long>{
 
-	Local findByCity(String cityName);
+	Passenger findByName(String name);
 	
-	Local findByCityContaining(String cityName);
+	Passenger findByNameContaining(String name);
 	
-	Page<Local> findByCity(String cityName, Pageable pagination);
+	Page<Passenger> findByName(String name, Pageable pagination);
 	
 }
-

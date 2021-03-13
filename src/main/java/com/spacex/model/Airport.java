@@ -1,5 +1,6 @@
 package com.spacex.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,10 +16,12 @@ public class Airport {
 
 	private String name;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	private Local address;
 	
 	private String street;
+	
+	private Double childDiscount;
 
 	public Long getId() {
 		return id;
@@ -48,11 +51,12 @@ public class Airport {
 		
 	}
 	
-	public Airport(String name, Local address, String street) {
+	public Airport(String name, Local address, String street, Double childDiscount) {
 		super();
 		this.name = name;
 		this.address = address;
 		this.street = street;
+		this.childDiscount = childDiscount;
 	}
 
 	public String getStreet() {
@@ -68,8 +72,10 @@ public class Airport {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((childDiscount == null) ? 0 : childDiscount.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((street == null) ? 0 : street.hashCode());
 		return result;
 	}
 
@@ -87,6 +93,11 @@ public class Airport {
 				return false;
 		} else if (!address.equals(other.address))
 			return false;
+		if (childDiscount == null) {
+			if (other.childDiscount != null)
+				return false;
+		} else if (!childDiscount.equals(other.childDiscount))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -97,7 +108,20 @@ public class Airport {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
+		if (street == null) {
+			if (other.street != null)
+				return false;
+		} else if (!street.equals(other.street))
+			return false;
 		return true;
+	}
+
+	public Double getChildDiscount() {
+		return childDiscount;
+	}
+
+	public void setChildDiscount(Double childDiscount) {
+		this.childDiscount = childDiscount;
 	}
 	
 }

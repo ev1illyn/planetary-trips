@@ -4,6 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 public class Local {
@@ -11,18 +15,31 @@ public class Local {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+	@NotNull
+	@NotEmpty
+	@Length(min = 5, max = 255)
 	private String zipCode;
 
+	@NotNull
+	@NotEmpty
+	@Length(min = 5, max = 255)
 	private String country;
-	
+
+	@NotNull
+	@NotEmpty
+	@Length(min = 5, max = 255)
 	private String state;
-	
+
+	@NotNull
+	@NotEmpty
+	@Length(min = 5, max = 255)
 	private String city;
 	
 	public Local() {
 		
 	}
+	
 	public Local(String zipCode, String country, String state, String city) {
 		super();
 		this.zipCode = zipCode;

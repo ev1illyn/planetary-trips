@@ -47,7 +47,7 @@ public class AirportController {
 	@GetMapping
 	@Cacheable(value = "airportsList")
 	public Page<AirportDto> list(@RequestParam(required = false) String airportName,
-			@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) Pageable pagination) {
+			@PageableDefault(sort = "name", direction = Direction.ASC, page = 0, size = 10) Pageable pagination) {
 
 		Page<Airport> airports = airportName == null ? airportRepository.findAll(pagination)
 				: airportRepository.findByNameContaining(airportName, pagination);
@@ -70,7 +70,7 @@ public class AirportController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	@CacheEvict(value = "airportsList", allEntries = true)
-	public ResponseEntity<AirportDto> cadastrar(@RequestBody @Valid AirportForm airportForm,
+	public ResponseEntity<AirportDto> add(@RequestBody @Valid AirportForm airportForm,
 			UriComponentsBuilder uriBuilder) {
 
 		Airport airport = airportForm.convert(localRepository);

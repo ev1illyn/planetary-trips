@@ -9,11 +9,12 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.spacex.model.Local;
 import com.spacex.model.User;
+import com.spacex.model.Local;
+import com.spacex.repository.UserRepository;
 import com.spacex.repository.LocalRepository;
 
-public class UserForm {
+public class UserUpdateForm {
 
 	@NotNull
 	@NotEmpty
@@ -39,7 +40,7 @@ public class UserForm {
 	@NotEmpty
 	@Length(min = 5, max = 255)
 	private String cityName;
-	
+
 	@NotNull
 	@NotEmpty
 	@Length(min = 10, max = 255)
@@ -50,12 +51,12 @@ public class UserForm {
 	//@Length(min = 3, max = 20)
 	private List<String> profileName = new ArrayList<>();
 
-	public String getEmail() {
-		return email;
+	public String getCityName() {
+		return cityName;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
 	}
 
 	public String getName() {
@@ -66,20 +67,20 @@ public class UserForm {
 		this.name = name;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public List<String> getProfileName() {
-		return profileName;
-	}
-
-	public void setProfileName(List<String> profileName) {
-		this.profileName = profileName;
 	}
 
 	public String getPhoneNumber() {
@@ -98,22 +99,25 @@ public class UserForm {
 		this.street = street;
 	}
 
-	public String getCityName() {
-		return cityName;
+	public List<String> getProfileName() {
+		return profileName;
 	}
 
-	public void setCityName(String cityName) {
-		this.cityName = cityName;
-	}
-
-	public User convert(LocalRepository localRepository) {
-		Local address = localRepository.findByCity(cityName);
-		return new User(name, email, password, phoneNumber, address, street);
+	public void setProfileName(List<String> profileName) {
+		this.profileName = profileName;
 	}
 	
-	/*public User convert(ProfilesRepository profilesRepository) {
-		List<Profiles> profiles = profilesRepository.findDistinctByNameIn(profileName);
-		return new User(name, email, password, profiles, phoneNumber, local, street);
-	}*/
-	
+	public User update(Long id, UserRepository userRepository, LocalRepository localRepository) {
+		User user = userRepository.getOne(id);
+		Local local = localRepository.findByCity(this.cityName);
+		
+		user.setName(this.name);
+		user.setEmail(this.email);
+		user.setPass(this.password);
+		user.setPhoneNumber(this.phoneNumber);
+		user.setLocal(local);
+		user.setStreet(this.street);
+		
+		return user;
+	}
 }

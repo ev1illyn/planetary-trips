@@ -26,6 +26,9 @@ public class AirportForm {
 	@Length(min = 10, max = 255)
 	private String street;
 
+	@NotNull
+	private Double childDiscount;
+
 	public String getName() {
 		return name;
 	}
@@ -52,7 +55,7 @@ public class AirportForm {
 
 	public Airport convert(LocalRepository localRepository) {
 		Local address = localRepository.findByCity(cityName);
-		return new Airport(name, address, street);
+		return new Airport(name, address, street, childDiscount);
 	}
 	
 }
