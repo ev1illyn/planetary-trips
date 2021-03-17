@@ -5,6 +5,8 @@ import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.validation.constraints.Future;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -20,6 +22,11 @@ import com.spacex.repository.LocalRepository;
 public class FlightForm {
 
 	@NotNull
+	private Long number;
+	
+	@NotNull
+	@Min(5)
+	@Max(50)
 	private int availableSeats;
 
 	@NotNull
@@ -55,6 +62,14 @@ public class FlightForm {
 	@NotEmpty
 	@Length(min = 5, max = 255)
 	private String arrivalAirportName;
+
+	public Long getNumber() {
+		return number;
+	}
+
+	public void setNumber(Long number) {
+		this.number = number;
+	}
 
 	public int getAvailableSeats() {
 		return availableSeats;
@@ -143,6 +158,6 @@ public class FlightForm {
 		Local departure = localRepository.findByCity(departureCityName);
 		Local destination = localRepository.findByCity(destinationCityName);
 		
-		return new Flight(availableSeats, duration, childDiscount, destination, departure, arrivalDate, departureDate, departureAirport, arrivalAirport);
+		return new Flight(number, availableSeats, duration, childDiscount, destination, departure, arrivalDate, departureDate, departureAirport, arrivalAirport);
 	}
 }

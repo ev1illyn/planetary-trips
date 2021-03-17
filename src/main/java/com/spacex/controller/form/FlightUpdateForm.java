@@ -2,11 +2,14 @@ package com.spacex.controller.form;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Length;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.spacex.model.Airport;
 import com.spacex.model.Flight;
 import com.spacex.model.Local;
@@ -17,7 +20,11 @@ import com.spacex.repository.LocalRepository;
 public class FlightUpdateForm {
 
 	@NotNull
-	@Length(min = 1, max = 10)
+	private Long number;
+
+	@NotNull
+	@Min(5)
+	@Max(50)
 	private int availableSeats;
 
 	@NotNull
@@ -35,9 +42,13 @@ public class FlightUpdateForm {
 	private String departureCityName;
 
 	@NotNull
+	@Future
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
 	private LocalDateTime arrivalDate;
 
 	@NotNull
+	@Future
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
 	private LocalDateTime departureDate;
 
 	@NotNull
@@ -57,7 +68,7 @@ public class FlightUpdateForm {
 		Local departure = localRepository.findByCity(this.departureCityName);
 		Local destination = localRepository.findByCity(this.destinationCityName);
 		
-		flight.setNumber(flightId);
+		flight.setNumber(this.number);
 		flight.setArrivalDate(this.arrivalDate);
 		flight.setAvailableSeats(this.availableSeats);
 		flight.setDepartureDate(this.departureDate);

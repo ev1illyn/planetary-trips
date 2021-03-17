@@ -17,7 +17,6 @@ public class Flight {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long number;
 
 	private int availableSeats;
@@ -46,9 +45,11 @@ public class Flight {
 
 	}
 	
-	public Flight(int availableSeats, LocalTime duration, Double childDiscount, Local destination, Local departure,
-			LocalDateTime arrivalDate, LocalDateTime departureDate, Airport departureAirport, Airport arrivalAirport) {
+	public Flight(Long number, int availableSeats, LocalTime duration, Double childDiscount, Local destination,
+			Local departure, LocalDateTime arrivalDate, LocalDateTime departureDate, Airport departureAirport,
+			Airport arrivalAirport) {
 		super();
+		this.number = number;
 		this.availableSeats = availableSeats;
 		this.duration = duration;
 		this.childDiscount = childDiscount;
