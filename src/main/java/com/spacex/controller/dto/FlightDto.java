@@ -41,7 +41,7 @@ public class FlightDto {
 		this.arrivalDate = flight.getArrivalDate();
 		this.departureDate = flight.getDepartureDate();
 		this.arrivalAirport = flight.getArrivalAirport().getName();
-		this.arrivalAirport = flight.getDepartureAirport().getName();
+		this.departureAirport = flight.getDepartureAirport().getName();
 	}
 
 	public Long getId() {
