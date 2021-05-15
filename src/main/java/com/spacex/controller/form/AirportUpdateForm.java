@@ -12,7 +12,6 @@ import com.spacex.repository.LocalRepository;
 
 public class AirportUpdateForm {
 
-
 	@NotNull
 	@NotEmpty
 	@Length(min = 10, max = 255)

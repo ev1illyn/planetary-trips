@@ -3,6 +3,7 @@ package com.spacex.controller.form;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -31,6 +32,7 @@ public class FlightUpdateForm {
 	private LocalTime duration;
 	
 	@NotNull
+    @Column(columnDefinition = "Decimal(3,1) default '5.0'")
 	private Double childDiscount;
 	
 	@NotNull
@@ -58,6 +60,86 @@ public class FlightUpdateForm {
 	@NotNull
 	@NotEmpty
 	private String arrivalAirportName;
+
+	public Long getNumber() {
+		return number;
+	}
+
+	public void setNumber(Long number) {
+		this.number = number;
+	}
+
+	public int getAvailableSeats() {
+		return availableSeats;
+	}
+
+	public void setAvailableSeats(int availableSeats) {
+		this.availableSeats = availableSeats;
+	}
+
+	public LocalTime getDuration() {
+		return duration;
+	}
+
+	public void setDuration(LocalTime duration) {
+		this.duration = duration;
+	}
+
+	public Double getChildDiscount() {
+		return childDiscount;
+	}
+
+	public void setChildDiscount(Double childDiscount) {
+		this.childDiscount = childDiscount;
+	}
+
+	public String getDestinationCityName() {
+		return destinationCityName;
+	}
+
+	public void setDestinationCityName(String destinationCityName) {
+		this.destinationCityName = destinationCityName;
+	}
+
+	public String getDepartureCityName() {
+		return departureCityName;
+	}
+
+	public void setDepartureCityName(String departureCityName) {
+		this.departureCityName = departureCityName;
+	}
+
+	public LocalDateTime getArrivalDate() {
+		return arrivalDate;
+	}
+
+	public void setArrivalDate(LocalDateTime arrivalDate) {
+		this.arrivalDate = arrivalDate;
+	}
+
+	public LocalDateTime getDepartureDate() {
+		return departureDate;
+	}
+
+	public void setDepartureDate(LocalDateTime departureDate) {
+		this.departureDate = departureDate;
+	}
+
+	public String getDepartureAirportName() {
+		return departureAirportName;
+	}
+
+	public void setDepartureAirportName(String departureAirportName) {
+		this.departureAirportName = departureAirportName;
+	}
+
+	public String getArrivalAirportName() {
+		return arrivalAirportName;
+	}
+
+	public void setArrivalAirportName(String arrivalAirportName) {
+		this.arrivalAirportName = arrivalAirportName;
+	}
 
 	public Flight update(Long flightId, FlightRepository flightRepository,
 			AirportRepository airportRepository, LocalRepository localRepository) {

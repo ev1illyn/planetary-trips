@@ -32,6 +32,7 @@ public class FlightForm {
 	@NotNull
 	private LocalTime duration;
 
+	@NotNull
     @Column(columnDefinition = "Decimal(3,1) default '5.0'")
 	private Double childDiscount;
 
